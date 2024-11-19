@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import data from '../data/post.js'
 export default function AppMain(){
     const [task, setTask] = useState(data)
     const[newTask, setNewTask] = useState('')
+    const[searchText, setSearchText] = useState('')
+    const[filteredTasks, setFilteredTasks] = useState([])
+    useEffect(() => {
+        const filteredTasks = task.filter((task) => task.includes(searchText))
+
+    })
+
 
     function addTask(e) {
         e.preventDefault()
