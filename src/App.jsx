@@ -32,7 +32,29 @@ function App() {
     const[filteredTasks, setFilteredTasks] = useState([])
 
     const[formData, setFormData] = useState(initialFormdata)
-    
+    useEffect(() => {
+
+      // searchText = Rest
+      // filteredTask = ['Rest']
+      // tasks = filterdTasks
+      // tasks = ['Rest']
+  
+      // Digito 
+      // searhText = Laravel
+      // 
+  
+  
+      const filteredTasks = task.filter((task) => task.includes(searchText))
+      console.log(filteredTasks);
+  
+      // Error
+      //setTasks(filteredTasks)
+  
+      setFilteredTasks(filteredTasks)
+  
+  
+  
+    }, [task, searchText])
 
     function addTask(e) {
         e.preventDefault()
@@ -238,6 +260,7 @@ function App() {
                     )}
 
                    </ul>
+
             </div>
 
             
