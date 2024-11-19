@@ -19,7 +19,7 @@ Buon divertimento e confermate lettura come al solito
 const initialFormdata = {
   name: '',
   description: '',
-  price: 0,
+  content: '',
   image: '',
   available: false
 }
@@ -32,11 +32,7 @@ function App() {
     const[filteredTasks, setFilteredTasks] = useState([])
 
     const[formData, setFormData] = useState(initialFormdata)
-    useEffect(() => {
-        const filteredTasks = task.filter((task) => task.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()))
-       setFilteredTasks(filteredTasks)
-    },[task, searchText])
-
+    
 
     function addTask(e) {
         e.preventDefault()
@@ -80,9 +76,9 @@ function App() {
     }
     console.log(newItem);
 
-    setMenu([
+    setTask([
       newItem,
-      ...menu
+      ...task
     ])
 
     setFormData(initialFormdata)
@@ -143,15 +139,15 @@ function App() {
           </div>
            
           <div className="mb-3">
-            <label htmlFor="price" className="form-label">price</label>
+            <label htmlFor="content" className="form-label">content</label>
             <input type="text" 
             className="form-controll" 
-            id="price"
-            name="price"
-            aria-describedby="pricehelper"
-            placeholder="9,99"
+            id="content"
+            name="content"
+            aria-describedby="contenthelper"
+            placeholder="contenuto"
             required
-            value={formData.price}
+            value={formData.content}
             onChange={handleFormField}
             />
           </div>
@@ -235,7 +231,7 @@ function App() {
                 
                    <ul className="list-group">
 
-                       {filteredTasks.map((task, index) =>  <li key={index} className="list-group-item d-flex justify-content-between">{task} <button onClick={handlerDeleteTask} dataIndex={index}>
+                       {filteredTasks.map((task, index) =>  <li key={index} className="list-group-item d-flex justify-content-between">{task}  <button onClick={handlerDeleteTask} dataIndex={index}>
                        <i className="bi bi-trash"></i>
                         </button></li> 
                     
