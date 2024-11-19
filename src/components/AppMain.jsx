@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import data from '../data/post.js'
-export default function AppMain(){
+export default function AppMain( ){
     const [task, setTask] = useState(data)
     const[newTask, setNewTask] = useState('')
     const[searchText, setSearchText] = useState('')
     const[filteredTasks, setFilteredTasks] = useState([])
     useEffect(() => {
         const filteredTasks = task.filter((task) => task.includes(searchText))
-
-    })
+       setFilteredTasks(filteredTasks)
+    },[task, searchText])
 
 
     function addTask(e) {
@@ -28,7 +28,10 @@ export default function AppMain(){
     setTask(newTask)
    }
 
-
+   function handleSearchForm(e) {
+    e.preventDefault()
+    //alert('Form sent')
+  }
 
 
     return (
@@ -54,11 +57,25 @@ export default function AppMain(){
 
                 </form>
 
+                <form onSubmit={handleSearchForm}>
+
+                    <div className="mb-3">
+                        <input type="search"
+                         name="searchText"
+                          id="searchText"
+                          aria-describedby="searchText"
+                          placeholder="Search..."
+                          value={searchText}
+                          onChange={e => setSearchText(e.target.value)}
+                           />
+                    </div>
+                </form>
+
                 
                 
                    <ul className="list-group">
 
-                       {task.map((task, index) =>  <li key={index} className="list-group-item d-flex justify-content-between">{task} <button onClick={handlerDeleteTask} dataIndex={index}>
+                       {filteredTasks.map((task, index) =>  <li key={index} className="list-group-item d-flex justify-content-between">{task} <button onClick={handlerDeleteTask} dataIndex={index}>
                        <i className="bi bi-trash"></i>
                         </button></li> 
                     
