@@ -148,14 +148,27 @@ function App() {
             className="form-controll" 
             id="price"
             name="price"
-            step={0.1}
             aria-describedby="pricehelper"
             placeholder="9,99"
-            rows="5"
             required
-            value={formData.image}
+            value={formData.price}
             onChange={handleFormField}
             />
+          </div>
+
+
+          
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">Description</label>
+
+            <textarea
+              className="form-control"
+              name="description"
+              id="description"
+              rows="5"
+              value={formData.description}
+              onChange={handleFormField}
+            ></textarea>
           </div>
            
           <div className="form-check mb-3">
