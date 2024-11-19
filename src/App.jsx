@@ -15,11 +15,23 @@ Buon divertimento e confermate lettura come al solito
 
 
 */
+
+const initialFormdata = {
+  name: '',
+  description: '',
+  price: 0,
+  image: '',
+  available: false
+}
+
+
 function App() {
   const [task, setTask] = useState(data)
     const[newTask, setNewTask] = useState('')
     const[searchText, setSearchText] = useState('')
     const[filteredTasks, setFilteredTasks] = useState([])
+
+    const[formData, setFormData] = useState(initialFormdata)
     useEffect(() => {
         const filteredTasks = task.filter((task) => task.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()))
        setFilteredTasks(filteredTasks)
@@ -48,11 +60,131 @@ function App() {
     //alert('Form sent')
   }
 
+  function handleFormField(e) {
+    //console.log(e.target);
 
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+
+    setFormData({
+      ...formData,
+      [e.target.name]: value
+    })
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault()
+    console.log('Form sent', formData);
+    const newItem = {
+      id: Date.now(),
+      ...formData
+    }
+    console.log(newItem);
+
+    setMenu([
+      newItem,
+      ...menu
+    ])
+
+    setFormData(initialFormdata)
+  }
   return (
     <>
       <AppHeader />
       <main>
+
+      <div className="p5 mb-4">
+              <div className="container-fluid py-5">
+                <h1 className="display-5 fw-bold">Aggiungi il tuo post</h1>
+                <p className="col-md-8 fs-4">
+                  questo post......
+                </p>
+                <button className="btn btn-primary btn-lg" type="button" popovertarget='off-canvas-form'>
+                  <i className="bi bi-plus"></i> Add
+                </button>
+
+              </div>
+            </div>
+
+            <div id='off-canvas-form' popover="true" className="bg-dark p-3 border-0 shadow-lg text-white" style={{minHeight: "100dvh"}}>
+            <div className="d-flex gap-5">
+          <h3>Add a new post</h3>
+          <button className="btn bg-primary" type="button" popovertarget="off-canvas-form" popovertargetaction="hide">
+            <i className="bi bi-x"></i> Close
+          </button>
+        </div>
+
+        <form onSubmit={handleFormSubmit}>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">name</label>
+            <input type="text" 
+            className="form-controll" 
+            id="name"
+            name="name"
+            aria-describedby="namehelper"
+            placeholder="ugo"
+            required
+            value={formData.name}
+            onChange={handleFormField}
+            />
+          </div>
+            
+          <div className="mb-3">
+            <label htmlFor="image" className="form-label">image</label>
+            <input type="text" 
+            className="form-controll" 
+            id="image"
+            name="image"
+            aria-describedby="imagehelper"
+            placeholder="add image"
+            required
+            value={formData.image}
+            onChange={handleFormField}
+            />
+          </div>
+           
+          <div className="mb-3">
+            <label htmlFor="price" className="form-label">price</label>
+            <input type="text" 
+            className="form-controll" 
+            id="price"
+            name="price"
+            step={0.1}
+            aria-describedby="pricehelper"
+            placeholder="9,99"
+            rows="5"
+            required
+            value={formData.image}
+            onChange={handleFormField}
+            />
+          </div>
+           
+          <div className="form-check mb-3">
+            <input
+              id="available"
+              name='available'
+              type="checkbox"
+              className="form-check-input"
+              value={formData.available}
+              onChange={handleFormField}
+
+            />
+            <label className="form-check-label" htmlFor=""> Available </label>
+          </div>
+
+
+          <button
+            type="submit"
+            className="btn btn-secondary"
+          >
+            <i className="bi bi-floppy"></i> Save
+          </button>
+
+
+         
+        </form>
+            </div>
+          
+
       <div className="container bg-warning p-1">
                 <h1>Lista dei post</h1>
 
@@ -98,6 +230,8 @@ function App() {
 
                    </ul>
             </div>
+
+            
       </main>
       <AppFooter />
     </>
