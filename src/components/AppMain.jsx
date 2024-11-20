@@ -55,7 +55,7 @@ export default function AppMain( ){
                            <small id='taskHelperId' className='form-text text-muted'>type your new post</small>
              </div>
 
-                </form>
+                </form>s
 
                 <form onSubmit={handleSearchForm}>
 

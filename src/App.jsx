@@ -18,9 +18,10 @@ Buon divertimento e confermate lettura come al solito
 
 const initialFormdata = {
   name: '',
-  description: '',
-  content: '',
-  image: '',
+    image: '',
+    description: '',
+    category: '', // *modifica temporanea?
+    tags: [],
   available: false
 }
 
@@ -28,33 +29,8 @@ const initialFormdata = {
 function App() {
   const [task, setTask] = useState(data)
     const[newTask, setNewTask] = useState('')
-    const[searchText, setSearchText] = useState('')
-    const[filteredTasks, setFilteredTasks] = useState([])
-
     const[formData, setFormData] = useState(initialFormdata)
-    useEffect(() => {
-
-      // searchText = Rest
-      // filteredTask = ['Rest']
-      // tasks = filterdTasks
-      // tasks = ['Rest']
-  
-      // Digito 
-      // searhText = Laravel
-      // 
-  
-  
-      const filteredTasks = task.filter((task) => task.includes(searchText))
-      console.log(filteredTasks);
-  
-      // Error
-      //setTasks(filteredTasks)
-  
-      setFilteredTasks(filteredTasks)
-  
-  
-  
-    }, [task, searchText])
+   
 
     function addTask(e) {
         e.preventDefault()
@@ -99,7 +75,7 @@ function App() {
     console.log(newItem);
 
     setTask([
-      newItem,
+      newTask,
       ...task
     ])
 
@@ -188,7 +164,54 @@ function App() {
               onChange={handleFormField}
             ></textarea>
           </div>
-           
+          <select
+                                id="selectInput"
+                                name="category"
+                                placeholder="Seleziona categoria post"
+                                value={formData.category}
+                                onChange={handleFormField}>
+                                <option value="1">
+                                    categoria 1
+                                </option>
+                                <option value="2">
+                                    categoria 2
+                                </option>
+                                <option value="3">
+                                    categoria 3
+                                </option>
+                                <option value="4">
+                                    categoria 4
+                                </option>
+                                <option value="5">
+                                    categoria 5
+                                </option>
+                            </select>
+
+                                {/* input checkbox tags */}
+                                <input type="checkbox"
+                                id="checkInput1"
+                                name="tag1"
+                                value={formData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Tag1
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput2"
+                                name="tag2"
+                                value={formData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Tag2
+                            </label>
+                            <input type="checkbox"
+                                id="checkInput3"
+                                name="tag3"
+                                value={formData.tags}
+                                onChange={handleFormField} />
+                            <label>
+                                Tag3
+                            </label>
           <div className="form-check mb-3">
             <input
               id="available"
@@ -219,47 +242,37 @@ function App() {
       <div className="container bg-warning p-1">
                 <h1>Lista dei post</h1>
 
-                <form onSubmit={addTask}>
-                <div className="mb-3">
-                     <label htmlFor="task" className='form-label'>Post</label>
-                      <div className="input-group mb-3">
-                      <input type="text" className='form-control' placeholder='Recipient'
-                      aria-label='Recipiement username'  aria-labelledby='button-addon2'
-                      value={newTask}
-                      onChange={e => setNewTask(e.target.value)}/>
-                    <button className='btn  bg-primary' type='submit' id='button-addon2'>Send</button>
+             
 
-            </div>
-                           <small id='taskHelperId' className='form-text text-muted'>type your new post</small>
-             </div>
-
-                </form>
-
-                <form onSubmit={handleSearchForm}>
-
-                    <div className="mb-3">
-                        <input type="search"
-                         name="searchText"
-                          id="searchText"
-                          aria-describedby="searchText"
-                          placeholder="Search..."
-                          value={searchText}
-                          onChange={e => setSearchText(e.target.value)}
-                           />
-                    </div>
-                </form>
+              
 
                 
                 
-                   <ul className="list-group">
-
-                       {filteredTasks.map((task, index) =>  <li key={index} className="list-group-item d-flex justify-content-between">{task}  <button onClick={handlerDeleteTask} dataIndex={index}>
-                       <i className="bi bi-trash"></i>
-                        </button></li> 
-                    
-                    )}
-
-                   </ul>
+                <ul>
+                            {task.map((post, index) => <li key={index}>
+                                <div className="container">
+                                    <p>
+                                        {post.name}
+                                    </p>
+                                    <img src={post.image} alt={post.name} />
+                                    <p>
+                                        {post.description}
+                                    </p>
+                                    <p>
+                                        {post.category}
+                                    </p>
+                                    <p>
+                                        {post.tags}
+                                    </p>
+                                    <p>
+                                        {post.available ? 'post available' : 'post not available'}
+                                    </p>
+                                </div>
+                                <button onClick={handlerDeleteTask} dataIndex={index}>
+                                    press
+                                </button>
+                            </li>)}
+                        </ul>
 
             </div>
 
