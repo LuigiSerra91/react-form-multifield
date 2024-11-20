@@ -28,32 +28,19 @@ const initialFormdata = {
 
 function App() {
   const [task, setTask] = useState(data)
-    const[newTask, setNewTask] = useState('')
+    
     const[formData, setFormData] = useState(initialFormdata)
    
 
-    function addTask(e) {
-        e.preventDefault()
-
-        setTask([
-            ...task,
-            newTask
-        ])
-
-        setNewTask('')
-    }
+    
    function handlerDeleteTask(e) {
-    const dataIndex = e.target.getAttribute('dataIndex')
+    const dataIndex = Number(e.target.getAttribute('dataIndex'))
     const newTask = task.filter((task, index) => dataIndex != index ) 
 
     setTask(newTask)
    }
 
-   function handleSearchForm(e) {
-    e.preventDefault()
-    //alert('Form sent')
-  }
-
+   
   function handleFormField(e) {
     //console.log(e.target);
 
@@ -75,7 +62,7 @@ function App() {
     console.log(newItem);
 
     setTask([
-      newTask,
+      newItem,
       ...task
     ])
 
@@ -136,21 +123,6 @@ function App() {
             />
           </div>
            
-          <div className="mb-3">
-            <label htmlFor="content" className="form-label">content</label>
-            <input type="text" 
-            className="form-controll" 
-            id="content"
-            name="content"
-            aria-describedby="contenthelper"
-            placeholder="contenuto"
-            required
-            value={formData.content}
-            onChange={handleFormField}
-            />
-          </div>
-
-
           
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
